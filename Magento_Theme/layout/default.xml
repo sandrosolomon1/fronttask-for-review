@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="checkout_cart_item_renderers"/>
+    <body>
+        <referenceBlock name="logo">
+            <arguments>
+                <argument name="logo_file" xsi:type="string">images/logo.jpg</argument>
+                <argument name="logo_img_width" xsi:type="number">200</argument>
+                <argument name="logo_img_height" xsi:type="number">200</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="authorization-link" remove="true"/>
+        <referenceBlock name="header" remove="true"/>
+        <referenceBlock name="advanced-search-link" remove="true"/>
+        <referenceBlock name="catalog.compare.link" remove="true"/>
+        <referenceBlock name="top.links">
+            <block class="Magento\Customer\Block\Account\Link" name="checkout-link">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Checkout</argument>
+                    <argument name="sortOrder" xsi:type="number">50</argument>
+                    <argument name="path" xsi:type="string">checkout</argument>
+                </arguments>
+            </block>
+            <referenceBlock name="register-link">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Register</argument>
+                </arguments>
+            </referenceBlock>
+        </referenceBlock>
+        <referenceContainer name="header.panel">
+            <block class="Magento\Store\Block\Switcher" name="store_language" as="store_language" template="Magento_Store::switch/languages.phtml"/>
+        </referenceContainer>
+        <move element="navigation.sections" destination="header-wrapper"/>
+        <move element="minicart" destination="header.panel" after="top.links"/>
+        <referenceBlock name="catalog.topnav">
+            <block class="Magento\Framework\View\Element\Template" name="custom-sections" template="Magento_Theme::custom_sections.phtml" />
+        </referenceBlock>
+        <referenceContainer name="page.wrapper" >
+            <block class="Magento\Framework\View\Element\Template" name="header-panel" template="Magento_Theme::header_panel.phtml"/>
+        </referenceContainer>
+        <move element="header-panel" destination="page.wrapper" before="main.content"/>
+        <referenceContainer name="footer">
+            <block class="Magento\Newsletter\Block\Subscribe" name="form.subscribe" as="subscribe" before="-" template="Magento_Newsletter::subscribe.phtml" ifconfig="newsletter/general/active"/>
+        </referenceContainer>
+        <move element="form.subscribe" destination="page.wrapper" after="main.content"/>
+        <referenceBlock name="footer_links" remove="true"/>
+        <referenceContainer name="footer-container">
+            <block class="Magento\Framework\View\Element\Template" name="footer-navigation" template="Magento_Theme::footer-navigation.phtml" before="footer"/>
+        </referenceContainer>
+        <referenceContainer name="footer" htmlClass="footer content bottom">
+            <container name="c-l" htmlTag="div" htmlClass="c-l"/>
+            <block class="Magento\Framework\View\Element\Template" name="payement-options" template="Magento_Theme::payment.phtml" after="c-l"/>
+        </referenceContainer>
+        <move element="copyright" destination="c-l"/>
+        <move element="report.bugs" destination="c-l"/>
+    </body>
+</page>
