@@ -5,7 +5,6 @@
  */
 
 /** @var $block \Magento\Checkout\Block\Cart\Sidebar */
-/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
 ?>
 
 <div data-block="minicart" class="minicart-wrapper">
@@ -13,24 +12,21 @@
        data-bind="scope: 'minicart_content'">
         <span class="text"><?= $block->escapeHtml(__('My Cart')) ?></span>
         <span class="counter qty empty"
-              data-bind="css: { empty: !!getCartParam('summary_count') == false && !isLoading() },
-               blockLoader: isLoading">
+              data-bind="css: { empty: !!getCartParam('summary_count') == false && !isLoading() }, blockLoader: isLoading">
             <span class="counter-number"><!-- ko text: getCartParam('summary_count') --><!-- /ko --></span>
             <span class="counter-label">
             <!-- ko if: getCartParam('summary_count') -->
                 <!-- ko text: getCartParam('summary_count') --><!-- /ko -->
                 <!-- ko i18n: 'items' --><!-- /ko -->
-            <!-- /ko -->
+                <!-- /ko -->
             </span>
         </span>
-
         <span class="details">
             <span data-bind="html: getCartParam('summary_count')"></span>
             <span> item(s) - </span>
             <span data-bind="html: getCartParam('subtotal')"></span>
         </span>
     </a>
-    <?php if ($block->getIsNeedToDisplaySideBar()):?>
         <div class="block block-minicart"
              data-role="dropdownDialog"
              data-mage-init='{"dropdownDialog":{
@@ -44,22 +40,22 @@
                 "buttons":[]}}'>
             <div id="minicart-content-wrapper" data-bind="scope: 'minicart_content'">
                 <!-- ko template: getTemplate() --><!-- /ko -->
+                <div id="cart-totals" class="cart-totals" data-bind="scope:'block-totals'">
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                    <script type="text/x-magento-init">
+            {
+                "#cart-totals": {
+                    "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+                }
+            }
+    </script>
+                </div>
             </div>
             <?= $block->getChildHtml('minicart.addons') ?>
         </div>
-    <?php else: ?>
-        <?php $scriptString = <<<script
-            require(['jquery'], function ($) {
-                $('a.action.showcart').click(function() {
-                    $(document.body).trigger('processStart');
-                });
-            });
-script;
-        ?>
-        <?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false); ?>
-    <?php endif ?>
-<!--    --><?//= /* @noEscape */ $secureRenderer->renderTag('script', [], 'window.checkout = ' .
-//     /* @noEscape */ $block->getSerializedConfig(), false); ?>
+    <script>
+        window.checkout = <?= /* @noEscape */ $block->getSerializedConfig() ?>;
+    </script>
     <script type="text/x-magento-init">
     {
         "[data-block='minicart']": {
@@ -67,9 +63,10 @@ script;
         },
         "*": {
             "Magento_Ui/js/block-loader": "<?= $block->escapeJs(
-                $block->escapeUrl($block->getViewFileUrl('images/loader-1.gif'))
-            ) ?>"
+            $block->escapeUrl($block->getViewFileUrl('images/loader-1.gif'))
+        ) ?>"
         }
     }
     </script>
 </div>
+
