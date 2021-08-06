@@ -19,9 +19,6 @@ $configProvider = $block->getData('configProvider');
         <form class="form minisearch" id="search_mini_form"
               action="<?= $block->escapeUrl($helper->getResultUrl()) ?>" method="get">
             <div class="field search">
-                <label class="label" for="search" data-role="minisearch-label">
-                    <span><?= $block->escapeHtml(__('Search')) ?></span>
-                </label>
                 <div class="control">
                     <input id="search"
                                data-mage-init='{"quickSearch":{
@@ -33,14 +30,17 @@ $configProvider = $block->getData('configProvider');
                            type="text"
                            name="<?= $block->escapeHtmlAttr($helper->getQueryParamName()) ?>"
                            value="<?= /* @noEscape */ $helper->getEscapedQueryText() ?>"
-                           placeholder="<?= $block->escapeHtmlAttr(__('Search entire store here...')) ?>"
+                           placeholder="<?= $block->escapeHtmlAttr(__('Search here...')) ?>"
                            class="input-text"
                            maxlength="<?= $block->escapeHtmlAttr($helper->getMaxQueryLength()) ?>"
                            role="combobox"
                            aria-haspopup="false"
                            aria-autocomplete="both"
                            autocomplete="off"
-                           aria-expanded="false"/>
+                           aria-expanded="true"/>
+                        <div class="label" for="search">
+                            <span><?= $block->escapeHtml(__('Search')) ?></span>
+                        </div>
                     <div id="search_autocomplete" class="search-autocomplete"></div>
                     <?= $block->getChildHtml() ?>
                 </div>
@@ -67,6 +67,5 @@ $configProvider = $block->getData('configProvider');
                     $(".form.minisearch").toggle();
                 });
         });
-        $('.action.nav-toggle span').html('Menu');
     });
 </script>
