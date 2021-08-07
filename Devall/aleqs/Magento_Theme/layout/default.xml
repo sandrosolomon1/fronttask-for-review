@@ -53,8 +53,8 @@
             <container name="c-l" htmlTag="div" htmlClass="c-l"/>
             <block class="Magento\Framework\View\Element\Template" name="payement-options" template="Magento_Theme::payment.phtml" after="c-l"/>
         </referenceContainer>
-        <move element="copyright" destination="c-l"/>
-        <move element="report.bugs" destination="c-l"/>
+        <referenceBlock name="copyright" remove="true"/>
+        <referenceBlock name="report.bugs" remove="true"/>
         <referenceContainer name="c-l">
             <block class="Magento\Framework\View\Element\Template" name="mobile-payment-help" template="Magento_Theme::mobile_payment_help.phtml"/>
         </referenceContainer>

@@ -218,6 +218,13 @@
 
         #newsletter {
             border-radius: 1.5rem 0 0 1.5rem;
+            margin-right: 90px;
+
+            &::placeholder {
+                color: black;
+                font-size: 1.3rem;
+                font-weight: bold;
+            }
         }
 
         .block.newsletter {
@@ -237,6 +244,7 @@
                 span {
                     text-transform: uppercase;
                     letter-spacing: 2px;
+                    font-size: 1.2rem;
                 }
 
                 .sub-s {
@@ -257,7 +265,7 @@
 
     .footer-nav {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
 
         a,
         a:visited {
@@ -274,7 +282,7 @@
             }
 
             ul li {
-                margin-bottom: 1rem;
+                margin-bottom: 1.5rem;
             }
         }
 
@@ -288,7 +296,7 @@
                 li {
                     display: flex;
                     align-items: center;
-                    margin-bottom: 1rem;
+                    margin-bottom: 3rem;
 
                     svg:nth-child(2) {
                         margin: 0 1rem;
@@ -304,10 +312,24 @@
 
     .footer.content {
         border-top: none;
+        margin-top: 7rem;
 
         .c-l {
+            display: flex;
+            align-items: end;
+
             .mobile-payment-help {
-                display: none;
+                display: block;
+                font-size: 1.2rem;
+
+                .title-bold {
+                    font-weight: bold;
+                    color: lightgray;
+                }
+
+                .sub-text {
+                    color: grey;
+                }
             }
         }
 
@@ -655,21 +677,14 @@
             margin-bottom: 3rem;
 
             .mobile-payment-help {
-                display: block;
-
+                font-size: 1.6rem;
                 .title-bold {
-                    font-weight: bolder;
                     margin-bottom: 1rem;
                 }
 
                 .sub-text {
-                    color: lightgrey;
+                    color: grey;
                 }
-            }
-
-            .bugs,
-            .copyright {
-                display: none;
             }
         }
     }
